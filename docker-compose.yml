@@ -1,0 +1,33 @@
+services:
+  # Opcional: Treina o modelo se ele não existir
+  pipeline:
+    build: .
+    container_name: mlet_pipeline
+    volumes:
+      - .:/app
+    # Roda o repro apenas para garantir que os dados e a base de tracking existam
+    command: ["uv", "run", "dvc", "repro"]
+
+  mlflow:
+    build: .
+    container_name: mlet_mlflow_ui
+    volumes:
+      - .:/app
+    ports:
+      - "5000:5000"
+    command: ["uv", "run", "mlflow", "ui", "--host", "0.0.0.0", "--backend-store-uri", "sqlite:///mlflow.db"]
+    depends_on:
+      pipeline:
+        condition: service_completed_successfully
+
+  streamlit:
+    build: .
+    container_name: mlet_streamlit_app
+    volumes:
+      - .:/app
+    ports:
+      - "8501:8501"
+    command: ["uv", "run", "streamlit", "run", "src/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    depends_on:
+      pipeline:
+        condition: service_completed_successfully

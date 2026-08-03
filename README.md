@@ -46,13 +46,17 @@ uv run mlflow ui --backend-store-uri sqlite:///mlflow.db
 ```
 Em seguida, acesse `http://127.0.0.1:5000` no seu navegador.
 
-## 🐳 Como Executar via Docker
-Para executar o pipeline completo em um contêiner Docker:
+## 🐳 Como Executar via Docker (Produção / OCI)
+Para executar o pipeline completo e subir os serviços web (MLflow UI e o Web App de Predição), utilize o Docker Compose:
 ```bash
-docker build -t techchallenge2 .
-docker run --rm -it techchallenge2
+docker compose up --build -d
 ```
-Isso irá instalar as dependências via `uv` internamente e rodar `dvc repro`.
+Isso irá inicializar 3 serviços:
+1. `mlet_pipeline`: Vai rodar o `dvc repro` para garantir que o modelo existe.
+2. `mlet_mlflow_ui`: Estará disponível na porta **5000**.
+3. `mlet_streamlit_app`: O app de demonstração estará disponível na porta **8501**.
+
+Você pode usar essas portas para configurar seu túnel do Cloudflare Zero Trust e acessar tudo publicamente.
 
 ## ✅ Testes e Linting
 Para rodar a verificação de Clean Code (Ruff) e testes unitários:
