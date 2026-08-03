@@ -1,0 +1,39 @@
+schema: '2.0'
+stages:
+  preprocess:
+    cmd: uv run python src/pipeline.py --input 
+      data/online_shoppers_intention.csv --output-train data/train.csv 
+      --output-test data/test.csv
+    deps:
+    - path: data/online_shoppers_intention.csv
+      hash: md5
+      md5: cc6ec1db03b4f10f8de52c56ff48b085
+      size: 1072063
+    - path: src/pipeline.py
+      hash: md5
+      md5: 44522e583e5c9529b289ee0498b0b940
+      size: 1755
+    outs:
+    - path: data/test.csv
+      hash: md5
+      md5: a0793880c3c2eb5144e711a71e6a9d60
+      size: 840582
+    - path: data/train.csv
+      hash: md5
+      md5: 265bcd93b4c524bc2110fd8bd716fb5f
+      size: 3362444
+  train:
+    cmd: uv run python src/modelo.py --train data/train.csv --test data/test.csv
+    deps:
+    - path: data/test.csv
+      hash: md5
+      md5: a0793880c3c2eb5144e711a71e6a9d60
+      size: 840582
+    - path: data/train.csv
+      hash: md5
+      md5: 265bcd93b4c524bc2110fd8bd716fb5f
+      size: 3362444
+    - path: src/modelo.py
+      hash: md5
+      md5: 92086fda56e517b0c920996df4d4a18f
+      size: 2117

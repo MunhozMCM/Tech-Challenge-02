@@ -1,0 +1,23 @@
+artifact_path: file:F:/1- DOCUMENTOS LUCAS/Pos Tech FIAP/10MLT/Fase 2/techchallenge2/mlruns/1/models/m-25518a568a0b48e3bf2e84d79e80acc1/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.skops
+    predict_fn: predict
+    python_version: 3.14.0
+  sklearn:
+    code: null
+    pickled_model: model.skops
+    serialization_format: skops
+    sklearn_version: 1.9.0
+    skops_trusted_types: null
+mlflow_version: 3.15.1
+model_id: m-25518a568a0b48e3bf2e84d79e80acc1
+model_size_bytes: 2184634
+model_uuid: m-25518a568a0b48e3bf2e84d79e80acc1
+prompts: null
+run_id: ae5fdc2590c54bc58240aed5685cd4f1
+utc_time_created: '2026-08-03 19:01:38.300155'

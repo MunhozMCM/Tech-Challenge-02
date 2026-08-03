@@ -1,0 +1,28 @@
+[project]
+name = "techchallenge2"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { email = "lucasmunhozz23@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "dvc>=3.67.1",
+    "mlflow>=3.15.1",
+    "pandas>=2.3.3",
+    "scikit-learn>=1.9.0",
+]
+
+[project.scripts]
+techchallenge2 = "techchallenge2:main"
+
+[build-system]
+requires = ["uv_build>=0.12.1,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.16.1",
+]

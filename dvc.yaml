@@ -1,0 +1,16 @@
+stages:
+  preprocess:
+    cmd: uv run python src/pipeline.py --input data/online_shoppers_intention.csv --output-train data/train.csv --output-test data/test.csv
+    deps:
+      - data/online_shoppers_intention.csv
+      - src/pipeline.py
+    outs:
+      - data/train.csv
+      - data/test.csv
+  
+  train:
+    cmd: uv run python src/modelo.py --train data/train.csv --test data/test.csv
+    deps:
+      - data/train.csv
+      - data/test.csv
+      - src/modelo.py
