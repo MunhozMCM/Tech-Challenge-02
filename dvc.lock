@@ -1,7 +1,7 @@
 schema: '2.0'
 stages:
   preprocess:
-    cmd: uv run python src/pipeline.py --input 
+    cmd: uv run python -m src.modeling.preprocessing --input 
       data/online_shoppers_intention.csv --output-train data/train.csv 
       --output-test data/test.csv
     deps:
@@ -9,31 +9,48 @@ stages:
       hash: md5
       md5: cc6ec1db03b4f10f8de52c56ff48b085
       size: 1072063
-    - path: src/pipeline.py
+    - path: src/config.py
       hash: md5
-      md5: 44522e583e5c9529b289ee0498b0b940
-      size: 1755
+      md5: cb1066c20c54b8957a45de8a916b9196
+      size: 866
+    - path: src/data/io.py
+      hash: md5
+      md5: 8ae11bf5acd72684040e50f2305d1a03
+      size: 502
+    - path: src/modeling/preprocessing.py
+      hash: md5
+      md5: 4a5f5175d927b87ab1ff41376b9aa970
+      size: 3095
     outs:
     - path: data/test.csv
       hash: md5
-      md5: a0793880c3c2eb5144e711a71e6a9d60
-      size: 840582
+      md5: 51ed81185769423914bc6f12c3ace961
+      size: 838115
     - path: data/train.csv
       hash: md5
-      md5: 265bcd93b4c524bc2110fd8bd716fb5f
-      size: 3362444
+      md5: c1b24cafd01c84f0ee8db58e897fb3bf
+      size: 3352579
   train:
-    cmd: uv run python src/modelo.py --train data/train.csv --test data/test.csv
+    cmd: uv run python -m src.modeling.train --train data/train.csv --test 
+      data/test.csv
     deps:
     - path: data/test.csv
       hash: md5
-      md5: a0793880c3c2eb5144e711a71e6a9d60
-      size: 840582
+      md5: 51ed81185769423914bc6f12c3ace961
+      size: 838115
     - path: data/train.csv
       hash: md5
-      md5: 265bcd93b4c524bc2110fd8bd716fb5f
-      size: 3362444
-    - path: src/modelo.py
+      md5: c1b24cafd01c84f0ee8db58e897fb3bf
+      size: 3352579
+    - path: src/config.py
       hash: md5
-      md5: 92086fda56e517b0c920996df4d4a18f
-      size: 2117
+      md5: cb1066c20c54b8957a45de8a916b9196
+      size: 866
+    - path: src/data/io.py
+      hash: md5
+      md5: 8ae11bf5acd72684040e50f2305d1a03
+      size: 502
+    - path: src/modeling/train.py
+      hash: md5
+      md5: 7a7601b0d42eb8e2dc494c9d7a020cf0
+      size: 2632

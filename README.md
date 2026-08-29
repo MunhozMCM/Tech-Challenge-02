@@ -11,12 +11,24 @@ Este projeto contém a solução para o Tech Challenge da Fase 2, focada em Enge
 - **Docker**: Containerização do ambiente completo.
 
 ## 📂 Estrutura do Projeto
-O projeto foi organizado visando Clean Code e boas práticas:
-- `src/`: Código-fonte (`pipeline.py` para processamento e `modelo.py` para treinamento).
-- `data/`: Datasets (gerenciados pelo DVC).
-- `models/`: Modelos salvos (se aplicável localmente, mas priorizamos MLflow Registry).
-- `configs/`: Configurações extras.
-- `tests/`: Scripts de testes básicos (pytest).
+O projeto segue a anatomia de repositório recomendada para ML em produção (Clean Code, módulos curtos e type hints):
+
+```text
+├── data/                    # Datasets (gerenciados pelo DVC)
+├── notebooks/               # EDA e experimentos (logam no MLflow) + decision logs
+├── src/
+│   ├── config.py            # Constantes: paths, SEED, target, MLflow
+│   ├── version.py           # Versão do modelo (semver)
+│   ├── app.py               # App Streamlit de demonstração
+│   ├── data/
+│   │   └── io.py            # Leitura/escrita de datasets
+│   └── modeling/
+│       ├── preprocessing.py # Estágio de pré-processamento (DVC: preprocess)
+│       └── train.py         # Estágio de treino + MLflow Registry (DVC: train)
+├── tests/                   # Testes unitários (pytest)
+├── dvc.yaml                 # Pipeline preprocess → train
+└── Makefile                 # Atalhos: install, repro, test, lint, format, app
+```
 
 ## ⚙️ Como Executar Localmente
 
