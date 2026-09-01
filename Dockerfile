@@ -10,6 +10,7 @@ WORKDIR /app
 COPY pyproject.toml uv.lock ./
 
 # Instalar dependencias em cache
+ENV UV_PROJECT_ENVIRONMENT="/opt/.venv"
 RUN uv sync --frozen --no-dev
 
 # Copiar projeto inteiro
